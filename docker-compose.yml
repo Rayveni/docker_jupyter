@@ -1,0 +1,21 @@
+version: "3.91"
+services:
+  app:
+    build:
+      context: ./docker/ 
+      dockerfile: Dockerfile      
+    image: local_image/flask_rq       
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT 
+    environment:
+      - TZ=${timezone} 
+      - redis_url=${redis_url}    
+    volumes: 
+      - type: bind
+        source: ${home_folder}
+        target: /home/jovyan/work       
+    ports:
+      - "${app_ports}"      
+
+ 
