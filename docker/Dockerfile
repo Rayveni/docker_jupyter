@@ -1,6 +1,6 @@
 FROM jupyter/base-notebook
-
-COPY requirements.txt /
+#USER root
+#COPY requirements.txt /
 #RUN pip3 install --no-cache-dir -r /requirements.txt
 
 # ===========================================================================
@@ -18,4 +18,4 @@ COPY requirements.txt /
 #RUN mkdir -p $JUPYTER_DATA_DIR
 #RUN mkdir -p $JUPYTER_RUNTIME_DIR
 
-WORKDIR /home
+#WORKDIR /home

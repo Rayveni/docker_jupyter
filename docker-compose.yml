@@ -1,21 +1,25 @@
-version: "3.91"
+version: "3.9"
 services:
-  app:
+  jupyter:
     build:
       context: ./docker/ 
-      dockerfile: Dockerfile      
-    image: local_image/jupyter      
-    # flask requires SIGINT to stop gracefully
-    # (default stop signal from Compose is SIGTERM)  --notebook-dir=jupyter_folder
-    stop_signal: SIGINT 
-    environment:
-      - TZ=${timezone}    
-    volumes: 
-      - type: bind
-        source: ${home_folder}
-        target: /home/jovyan/work       
+      dockerfile: Dockerfile        
+      args:
+         NB_USER: "my-user"
+    user: root
+    image: local_image/jupyter     
+    working_dir: /home/my-user/work
     ports:
-      - "${app_ports}"    
-    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"      
-
- 
+      - "${app_ports}" 
+    volumes: 
+    - type: bind
+      source: ${notebook_folder}
+      target: /home/my-user/work   
+    environment: 
+      - CHOWN_HOME=yes
+      - restartable=yes 
+      - TZ=${timezone} 
+      - DOCKER_STACKS_JUPYTER_CMD=notebook
+    #stdin_open: true
+    #tty: true
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''" 
