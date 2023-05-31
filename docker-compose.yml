@@ -4,18 +4,18 @@ services:
     build:
       context: ./docker/ 
       dockerfile: Dockerfile      
-    image: local_image/flask_rq       
+    image: local_image/jupyter      
     # flask requires SIGINT to stop gracefully
-    # (default stop signal from Compose is SIGTERM)
+    # (default stop signal from Compose is SIGTERM)  --notebook-dir=jupyter_folder
     stop_signal: SIGINT 
     environment:
-      - TZ=${timezone} 
-      - redis_url=${redis_url}    
+      - TZ=${timezone}    
     volumes: 
       - type: bind
         source: ${home_folder}
         target: /home/jovyan/work       
     ports:
-      - "${app_ports}"      
+      - "${app_ports}"    
+    command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"      
 
  
