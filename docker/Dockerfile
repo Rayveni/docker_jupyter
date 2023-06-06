@@ -1,7 +1,8 @@
-FROM jupyter/base-notebook
-#USER root
-#COPY requirements.txt /
-#RUN pip3 install --no-cache-dir -r /requirements.txt
+FROM jupyter/base-notebook:2023-06-05
+USER root
+COPY requirements.txt /
+RUN pip3 install --no-cache-dir -r /requirements.txt
+RUN jupyter contrib nbextension install 
 
 # ===========================================================================
 # JUPYTER NOTEBOOK EXTENSIONS
@@ -19,3 +20,4 @@ FROM jupyter/base-notebook
 #RUN mkdir -p $JUPYTER_RUNTIME_DIR
 
 #WORKDIR /home
+#RUN python3 -c "import matplotlib, scipy, numpy, pandas, sklearn, seaborn, yt, patsy, sympy, IPython, statsmodels"

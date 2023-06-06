@@ -5,16 +5,19 @@ services:
       context: ./docker/ 
       dockerfile: Dockerfile        
       args:
-         NB_USER: "my-user"
+         NB_USER: "${user}"
     user: root
     image: local_image/jupyter     
-    working_dir: /home/my-user/work
+    working_dir: /home/${user}/work
     ports:
       - "${app_ports}" 
     volumes: 
     - type: bind
       source: ${notebook_folder}
-      target: /home/my-user/work   
+      target: /home/${user}/work   
+    - type: bind
+      source: ${data_folder}
+      target: /home/${user}/work/data          
     environment: 
       - CHOWN_HOME=yes
       - restartable=yes 
