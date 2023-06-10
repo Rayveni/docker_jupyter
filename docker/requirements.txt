@@ -11,4 +11,8 @@ jupyter-contrib-nbextensions==0.7.0
 jupyter_nbextensions_configurator==0.6.3
 matplotlib==3.7.1
 seaborn==0.12.2
-ipysheet==0.7.0
+openpyxl==3.1.2
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+oauth2client

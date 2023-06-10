@@ -17,12 +17,17 @@ services:
       target: /home/${user}/work   
     - type: bind
       source: ${data_folder}
-      target: /home/${user}/work/data          
+      target: /home/${user}/work/data        
+    - type: bind
+      source: C:\git\PY\utils
+      target: /home/${user}/work/utils     
     environment: 
       - CHOWN_HOME=yes
+      - CHOWN_HOME_OPTS=-R    
       - restartable=yes 
       - TZ=${timezone} 
       - DOCKER_STACKS_JUPYTER_CMD=notebook
+      - NB_USER=${user}
     #stdin_open: true
     #tty: true
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''" 
