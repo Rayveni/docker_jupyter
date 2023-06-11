@@ -1,5 +1,11 @@
 FROM jupyter/base-notebook:2023-06-05
 USER root
+RUN apt-get update && \
+    apt-get install -yq tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata
+
+
 COPY requirements.txt /
 RUN pip3 install --no-cache-dir -r /requirements.txt
 RUN jupyter contrib nbextension install 
